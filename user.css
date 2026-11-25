@@ -927,3 +927,27 @@ body,
 .gh-followers .gh-sep {
     margin-inline: 4px;
 }
+
+/* ---------- Section headings: GitHub's small titles with a divider ("Popular repositories") ---------- */
+
+.Root__main-view h2.encore-text-title-small {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0 !important;
+}
+
+/* Shelves ("Recents", "Discography"): the divider runs under the title and "Show all" */
+.Root__main-view [class*="legacy-list-row__header"] {
+    border-bottom: var(--gh-border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+/* Standalone titles ("Popular", "About") */
+.Root__main-view h2.encore-text-title-small:not([class*="legacy-list-row-title"]) {
+    width: 100%;
+    border-bottom: var(--gh-border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
