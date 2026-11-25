@@ -1519,3 +1519,21 @@ main > div:has(> [data-testid="home-page"]) > div:first-child {
 [class*="chip__inner--secondary"] {
     padding-left: 12px !important;
 }
+
+/* ---------- Search result type tags ("Song", "Artist"…): GitHub labels ---------- */
+
+.Root__main-view [data-encore-id="tag"] {
+    background-color: transparent !important;
+    border: var(--gh-border);
+    border-radius: 2em !important;
+    padding: 0 7px !important;
+    color: var(--spice-subtext) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 18px !important;
+}
+
+.Root__main-view [data-encore-id="tag"][data-gh-tag="artist"] {
+    color: var(--spice-accent) !important;
+    border-color: rgba(var(--spice-rgb-accent), 0.4);
+}

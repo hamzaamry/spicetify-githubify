@@ -217,6 +217,11 @@
         document.querySelectorAll(".main-entityHeader-container").forEach(buildHeader);
         labelSearch();
         updateLibrary();
+        // Search result tags ("Song", "Artist"…): mark the type so CSS can colour Artist like a GitHub label
+        document.querySelectorAll("[data-encore-id='tag']").forEach((tag) => {
+            const type = tag.textContent.trim().toLowerCase();
+            if (tag.dataset.ghTag !== type) tag.dataset.ghTag = type;
+        });
     }
 
     new MutationObserver(() => {
