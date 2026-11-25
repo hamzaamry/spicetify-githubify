@@ -1,0 +1,846 @@
+/*
+ * GitHubify: GitHub-style details for Spotify.
+ * Colors live in color.ini. This file only uses --spice-* variables,
+ * so every scheme (dark, dimmed, light, high-contrast) works the same way.
+ */
+
+/* ---------- Base ---------- */
+
+:root,
+body,
+.encore-layout-themes {
+    --gh-radius: 6px;
+    --gh-radius-small: 4px;
+    --gh-border: 1px solid var(--spice-border);
+    --gh-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --gh-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --encore-body-font-stack: var(--gh-font) !important;
+    --encore-title-font-stack: var(--gh-font) !important;
+    --encore-variable-font-stack: var(--gh-font) !important;
+}
+
+/* Spotify's own color variables, pointed at the scheme colors.
+   Needed so the light scheme isn't stuck with dark-theme values. */
+.encore-dark-theme,
+.encore-dark-theme .encore-base-set,
+.encore-light-theme,
+.encore-light-theme .encore-base-set {
+    --background-base: var(--spice-main);
+    --background-highlight: var(--spice-highlight);
+    --background-press: var(--spice-highlight-elevated);
+    --background-elevated-base: var(--spice-main-elevated);
+    --background-elevated-highlight: var(--spice-highlight);
+    --background-elevated-press: var(--spice-highlight-elevated);
+    --background-tinted-base: rgba(var(--spice-rgb-text), 0.07);
+    --background-tinted-highlight: rgba(var(--spice-rgb-text), 0.11);
+    --background-tinted-press: rgba(var(--spice-rgb-text), 0.16);
+    --text-base: var(--spice-text);
+    --text-subdued: var(--spice-subtext);
+    --text-bright-accent: var(--spice-accent);
+    --essential-base: var(--spice-text);
+    --essential-subdued: var(--spice-border);
+    --essential-bright-accent: var(--spice-accent);
+    --essential-negative: var(--spice-notification-error);
+    --decorative-base: var(--spice-text);
+    --decorative-subdued: var(--spice-border);
+}
+
+/* Green "primary" buttons, like GitHub's Code / Create buttons */
+.encore-dark-theme .encore-bright-accent-set,
+.encore-light-theme .encore-bright-accent-set {
+    --background-base: var(--spice-button);
+    --background-highlight: var(--spice-button-active);
+    --background-press: var(--spice-button-active);
+    --background-elevated-base: var(--spice-button);
+    --background-elevated-highlight: var(--spice-button-active);
+    --background-elevated-press: var(--spice-button-active);
+    --text-base: var(--spice-button-text);
+    --essential-base: var(--spice-button-text);
+}
+
+::selection {
+    background-color: rgba(var(--spice-rgb-accent), 0.3);
+}
+
+/* ---------- Layout: GitHub header, inset sidebar, bordered panels ---------- */
+
+.Root__top-container {
+    background-color: var(--spice-sidebar);
+}
+
+.Root__globalNav {
+    background-color: var(--spice-sidebar);
+    border-bottom: var(--gh-border);
+}
+
+.Root__nav-bar,
+.main-yourLibraryX-library,
+.main-yourLibraryX-libraryContainer {
+    background-color: var(--spice-sidebar) !important;
+}
+
+.Root__main-view,
+.main-yourLibraryX-libraryContainer,
+.Root__right-sidebar-peek {
+    border: var(--gh-border);
+    border-radius: var(--gh-radius) !important;
+}
+
+.Root__main-view {
+    background-color: var(--spice-main);
+}
+
+/* Now playing bar: GitHub footer look */
+.Root__now-playing-bar,
+.main-nowPlayingBar-container {
+    background-color: var(--spice-player);
+}
+
+.Root__now-playing-bar {
+    border-top: var(--gh-border);
+}
+
+/* ---------- Search box and nav buttons ---------- */
+
+.main-globalNav-searchInputContainer input,
+.main-globalNav-searchSection input {
+    background-color: var(--spice-main) !important;
+    border-radius: var(--gh-radius) !important;
+    box-shadow: inset 0 0 0 1px var(--spice-border) !important;
+    font-size: 14px;
+}
+
+.main-globalNav-searchInputContainer input:focus,
+.main-globalNav-searchSection input:focus {
+    box-shadow: inset 0 0 0 2px var(--spice-accent) !important;
+}
+
+.main-globalNav-navLink,
+.main-globalNav-historyButtons button,
+.main-topBar-button {
+    border-radius: var(--gh-radius) !important;
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.main-globalNav-navLink:hover,
+.main-globalNav-historyButtons button:hover,
+.main-topBar-button:hover {
+    background-color: var(--spice-highlight);
+    transform: none;
+}
+
+/* ---------- Playlist / album header: like a repo header ---------- */
+
+.main-entityHeader-background,
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay,
+.main-actionBarBackground-background,
+.main-topBar-overlay {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.main-topBar-background {
+    background-color: var(--spice-main-elevated) !important;
+}
+
+.main-entityHeader-container {
+    background-color: var(--spice-main-elevated);
+    border-bottom: var(--gh-border);
+}
+
+/* Spotify paints the playlist's color and a gradient in and under the header; keep it flat */
+.main-entityHeader-container > div:not(.main-entityHeader-contentWrapper) {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.main-entityHeader-container + div[style*="background-color"],
+.main-entityHeader-container + div > div[style*="background-color"] {
+    background: var(--spice-main) !important;
+}
+
+/* Compact header: small cover, smaller title, like a repo header */
+.main-entityHeader-container {
+    height: auto !important;
+    min-height: unset !important;
+    max-height: none !important;
+}
+
+.main-entityHeader-contentWrapper {
+    align-items: center !important;
+    padding-block: 24px 20px !important;
+    gap: 16px;
+}
+
+.main-entityHeader-title h1,
+.main-entityHeader-title span {
+    font-size: 24px !important;
+    line-height: 1.25 !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+}
+
+/* "Playlist" / "Album" label as a GitHub "Public" badge */
+.main-entityHeader-headerText > span:first-child {
+    align-self: flex-start;
+    width: fit-content;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 20px;
+    padding: 0 7px;
+    border: var(--gh-border);
+    border-radius: 2em;
+    color: var(--spice-subtext);
+    margin-bottom: 6px;
+}
+
+.main-entityHeader-image,
+.main-entityHeader-imageContainer,
+.main-entityHeader-imageContainerNew {
+    border-radius: var(--gh-radius) !important;
+    box-shadow: none !important;
+}
+
+.main-entityHeader-imageContainer,
+.main-entityHeader-imageContainerNew {
+    width: 96px !important;
+    height: 96px !important;
+    min-width: 96px !important;
+    margin: 0 !important;
+}
+
+.main-entityHeader-image {
+    border: var(--gh-border);
+}
+
+.main-entityHeader-metaDataText {
+    color: var(--spice-subtext);
+}
+
+/* ---------- Play button: GitHub's green button ---------- */
+
+.main-playButton-PlayButton button,
+.main-playButton-PlayButton button > span {
+    border-radius: var(--gh-radius) !important;
+}
+
+.main-playButton-PlayButton button > span {
+    border: 1px solid rgba(var(--spice-rgb-text), 0.1);
+    box-shadow: none !important;
+}
+
+.main-playButton-PlayButton button:hover,
+.main-playButton-PlayButton button:hover > span {
+    transform: none !important;
+}
+
+/* ---------- Track list: a bordered GitHub file list ---------- */
+
+.main-trackList-trackList {
+    border: var(--gh-border);
+    border-radius: var(--gh-radius);
+}
+
+.main-trackList-trackListHeader,
+.main-trackList-trackListHeaderStuck.main-trackList-trackListHeader {
+    background-color: var(--spice-main-elevated) !important;
+    border-radius: var(--gh-radius) var(--gh-radius) 0 0;
+    /* Spotify pulls the header out with negative margins; keep it inside the box */
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+}
+
+.main-trackList-trackListHeaderRow {
+    border-bottom: var(--gh-border) !important;
+}
+
+.main-trackList-trackListRow {
+    border-radius: 0 !important;
+    box-shadow: inset 0 1px 0 var(--spice-border);
+}
+
+.main-trackList-trackListRow:hover,
+.main-trackList-trackListRow:focus-within {
+    background-color: var(--spice-highlight) !important;
+}
+
+.main-trackList-trackListRow.main-trackList-selected,
+.main-trackList-trackListRow.main-trackList-selected:hover {
+    background-color: rgba(var(--spice-rgb-accent), 0.15) !important;
+}
+
+/* Numbers and durations in monospace, like commit hashes */
+.main-trackList-rowSectionIndex,
+.main-trackList-rowDuration,
+[data-testid="playback-position"],
+[data-testid="playback-duration"] {
+    font-family: var(--gh-mono) !important;
+    font-size: 12px !important;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Cards: GitHub repo cards ---------- */
+
+.main-card-card {
+    background-color: var(--spice-main) !important;
+    border: var(--gh-border);
+    border-radius: var(--gh-radius) !important;
+}
+
+.main-card-card:hover,
+.main-card-card[data-context-menu-open="true"] {
+    background-color: var(--spice-main-elevated) !important;
+    border-color: rgba(var(--spice-rgb-subtext), 0.6);
+}
+
+.main-card-imageContainer,
+.main-cardImage-imageWrapper,
+.main-cardImage-image {
+    border-radius: var(--gh-radius-small) !important;
+    box-shadow: none !important;
+}
+
+/* ---------- Filter chips: GitHub tabs with the orange underline ---------- */
+
+[class*="-legacy-chip__inner"] {
+    background-color: transparent !important;
+    color: var(--spice-text) !important;
+    border-radius: var(--gh-radius) !important;
+    box-shadow: none !important;
+}
+
+[class*="-legacy-chip__inner"]:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+[class*="-legacy-chip__inner--selected"] {
+    background-color: transparent !important;
+    color: var(--spice-text) !important;
+    font-weight: 600 !important;
+    border-radius: 0 !important;
+    box-shadow: inset 0 -2px 0 var(--spice-tab-underline) !important;
+}
+
+/* ---------- Progress and volume bars ---------- */
+
+.x-progressBar-progressBarBg {
+    border-radius: var(--gh-radius-small);
+}
+
+.x-progressBar-fillColor,
+.playback-progressbar-isInteractive:hover .x-progressBar-fillColor {
+    background-color: var(--spice-accent) !important;
+}
+
+.main-nowPlayingBar-volumeBar .x-progressBar-fillColor,
+.main-nowPlayingBar-volumeBar .playback-progressbar-isInteractive:hover .x-progressBar-fillColor {
+    background-color: var(--spice-subtext) !important;
+}
+
+/* ---------- Menus and tooltips: GitHub overlays ---------- */
+
+#context-menu [role="menu"],
+.main-contextMenu-menu {
+    background-color: var(--spice-main-elevated) !important;
+    border: var(--gh-border);
+    border-radius: var(--gh-radius) !important;
+    box-shadow: 0 8px 24px rgba(var(--spice-rgb-shadow), 0.4) !important;
+}
+
+#context-menu [role="menuitem"],
+#context-menu [role="menuitem"] > button {
+    border-radius: var(--gh-radius-small) !important;
+}
+
+[class*="-legacy-tooltip"],
+[role="tooltip"] {
+    background-color: var(--spice-main-elevated) !important;
+    color: var(--spice-text) !important;
+    border: var(--gh-border);
+    border-radius: var(--gh-radius) !important;
+}
+
+/* ---------- Scrollbars ---------- */
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--spice-rgb-subtext), 0.4) !important;
+    border-radius: var(--gh-radius);
+}
+
+/* ---------- Repo header built by theme.js ---------- */
+
+/* Hide Spotify's cover, label and big title once our header is in place */
+.main-entityHeader-contentWrapper:has(.gh-repo-head) :is(.main-entityHeader-imageContainer, .main-entityHeader-imageContainerNew),
+.main-entityHeader-headerText:has(> .gh-repo-head) > span,
+.main-entityHeader-headerText:has(> .gh-repo-head) .main-entityHeader-creatorWrapper,
+.main-entityHeader-headerText:has(> .gh-repo-head) [data-gh-dot] {
+    display: none !important;
+}
+
+.main-entityHeader-contentWrapper:has(.gh-repo-head) {
+    padding-block: 24px 0 !important;
+}
+
+.main-entityHeader-headerText:has(> .gh-repo-head) {
+    gap: 0 !important;
+    justify-content: flex-start !important;
+}
+
+.gh-repo-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--spice-text);
+    min-width: 0;
+}
+
+.gh-repo-head .gh-icon {
+    fill: var(--spice-subtext);
+    flex: none;
+}
+
+.gh-owner {
+    color: var(--spice-accent) !important;
+    text-decoration: none;
+}
+
+.gh-owner:hover {
+    text-decoration: underline;
+}
+
+.gh-slash {
+    color: var(--spice-subtext);
+}
+
+.gh-name {
+    font-weight: 600;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.gh-badge {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    padding: 0 7px;
+    border: var(--gh-border);
+    border-radius: 2em;
+    color: var(--spice-subtext);
+}
+
+.main-entityHeader-headerText:has(> .gh-repo-head) .main-entityHeader-metaData {
+    margin-top: 4px;
+    gap: 16px;
+}
+
+.main-entityHeader-headerText:has(> .gh-repo-head) .main-entityHeader-metaData,
+.main-entityHeader-headerText:has(> .gh-repo-head) .main-entityHeader-metaData * {
+    color: var(--spice-subtext) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+.gh-tabs {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.gh-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 10px;
+    font-size: 14px;
+    color: var(--spice-text);
+    border-bottom: 2px solid transparent;
+}
+
+.gh-tab--active {
+    font-weight: 600;
+    border-bottom-color: var(--spice-tab-underline);
+}
+
+.gh-tab .gh-icon {
+    fill: var(--spice-subtext);
+}
+
+.gh-count {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    padding: 0 6px;
+    border-radius: 2em;
+    background-color: var(--spice-highlight);
+}
+
+/* ---------- Action bar: GitHub buttons with labels ---------- */
+
+.main-actionBar-ActionBarRow {
+    gap: 8px !important;
+}
+
+/* Play: green button with a label */
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button > span {
+    inline-size: auto !important;
+    block-size: 32px !important;
+    width: auto !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 14px 0 10px !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+}
+
+.main-actionBar-ActionBarRow .main-playButton-PlayButton svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button > span::after {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button[aria-label^="Play"] > span::after {
+    content: "Play";
+}
+
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button[aria-label^="Pause"] > span::after {
+    content: "Pause";
+}
+
+/* Other buttons: GitHub's grey buttons */
+.main-actionBar-ActionBarRow button[class*="legacy-button-tertiary"],
+.main-actionBar-ActionBarRow .x-sortBox-sortDropdown {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0 12px !important;
+    border: var(--gh-border) !important;
+    border-radius: var(--gh-radius) !important;
+    background-color: var(--spice-main-elevated) !important;
+    color: var(--spice-text) !important;
+    font-size: 14px;
+    font-weight: 500;
+    transform: none !important;
+}
+
+.main-actionBar-ActionBarRow button[class*="legacy-button-tertiary"]:hover,
+.main-actionBar-ActionBarRow .x-sortBox-sortDropdown:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+.main-actionBar-ActionBarRow button[class*="legacy-button-tertiary"] svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Labels go on the icon wrapper: Spotify already uses the button's ::after for the shuffle dot */
+.main-actionBar-ActionBarRow button[class*="legacy-button-tertiary"] > span:first-child {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    width: auto !important;
+    white-space: nowrap;
+}
+
+.main-actionBar-ActionBarRow button[aria-label*="Shuffle"] > span:first-child::after {
+    content: "Shuffle";
+}
+
+.main-actionBar-ActionBarRow button[aria-label="Save to Your Library"] > span:first-child::after {
+    content: "Star";
+}
+
+.main-actionBar-ActionBarRow button[aria-label="Remove from Your Library"] > span:first-child::after {
+    content: "Starred";
+}
+
+/* Shuffle on = blue icon and text, no dot.
+   Spotify's labels: off "Enable Shuffle", on "Enable Smart Shuffle", smart "Disable Shuffle". */
+.main-actionBar-ActionBarRow :is(button[aria-label^="Enable Smart Shuffle"], button[aria-label^="Disable Shuffle"]),
+.main-actionBar-ActionBarRow :is(button[aria-label^="Enable Smart Shuffle"], button[aria-label^="Disable Shuffle"]) svg {
+    color: var(--spice-accent) !important;
+    fill: var(--spice-accent) !important;
+}
+
+.main-actionBar-ActionBarRow button[aria-label*="Shuffle"]::after {
+    display: none !important;
+}
+
+/* Search in playlist: always open, full width, like "Go to file" */
+.main-actionBar-ActionBarRow > :last-child {
+    flex: 1 1 240px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 0;
+}
+
+.main-actionBar-ActionBarRow .x-filterBox-filterInputContainer,
+.main-actionBar-ActionBarRow .x-filterBox-filterInputContainer > * {
+    flex: 1 1 auto;
+}
+
+.main-actionBar-ActionBarRow .x-filterBox-filterInput {
+    width: 100% !important;
+    max-width: none !important;
+    opacity: 1 !important;
+    height: 32px;
+    padding-inline: 12px 36px !important;
+    border-radius: var(--gh-radius) !important;
+    border: var(--gh-border) !important;
+    background-color: var(--spice-main) !important;
+    color: var(--spice-text) !important;
+    font-size: 14px !important;
+}
+
+.main-actionBar-ActionBarRow .x-filterBox-filterInput:focus {
+    border-color: var(--spice-accent) !important;
+    box-shadow: inset 0 0 0 1px var(--spice-accent) !important;
+}
+
+/* ---------- Fixes found while testing ---------- */
+
+/* Spotify draws an extra "•" with ::before in the details line */
+.main-entityHeader-headerText:has(> .gh-repo-head) .main-entityHeader-metaData *::before {
+    content: none !important;
+}
+
+/* Icon-only buttons have a fixed width; let the label fit */
+.main-actionBar-ActionBarRow button[class*="legacy-button-tertiary"] {
+    width: auto !important;
+    inline-size: auto !important;
+}
+
+/* No gap or double line between the header row and the first track */
+.main-trackList-trackListHeader {
+    margin-bottom: 0 !important;
+}
+
+.main-trackList-trackList [aria-rowindex="2"] > .main-trackList-trackListRow {
+    box-shadow: none;
+}
+
+/* ---------- Other playlists (Daily Mix, albums, playlists you follow) ---------- */
+
+/* Spotify tints the button area with the playlist's color */
+[class*="actionBarBackground-background"] {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Description and "Ktyb, Samara and more": plain grey text, like a repo description */
+.main-entityHeader-headerText:has(> .gh-repo-head) > :is(div, button):not(.gh-repo-head, .gh-tabs, .main-entityHeader-metaData),
+.main-entityHeader-headerText:has(> .gh-repo-head) > :is(div, button):not(.gh-repo-head, .gh-tabs, .main-entityHeader-metaData) * {
+    color: var(--spice-subtext) !important;
+    font-size: 14px !important;
+    margin-top: 4px;
+}
+
+/* Play keeps Spotify's big round container; shrink it to the button */
+.main-actionBar-ActionBarPlayButtonContainer,
+.main-actionBar-ActionBarRow .main-playButton-PlayButton,
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button {
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+}
+
+/* Buttons keep their size; the row wraps instead of overlapping */
+.main-actionBar-ActionBarRow {
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    row-gap: 8px !important;
+}
+
+.main-actionBar-ActionBarRow > *:not(:last-child),
+.main-actionBar-ActionBarRow button {
+    flex-shrink: 0 !important;
+}
+
+/* "Explore" video thumbnail: a 32px button like the others */
+.main-actionBar-exploreButton {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border: var(--gh-border) !important;
+    border-radius: var(--gh-radius) !important;
+    overflow: hidden;
+}
+
+.main-actionBar-exploreButton :is(img, div, span) {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+}
+
+.gh-repo-head span.gh-owner {
+    color: var(--spice-accent);
+}
+
+/* Play's container is a fixed 74px square; center the button and drop the extra height */
+.main-actionBar-ActionBarPlayButtonContainer {
+    block-size: auto !important;
+    min-height: 0 !important;
+    min-block-size: 0 !important;
+    display: flex !important;
+    align-items: center;
+}
+
+/* Spotify gives the search box a fixed 400px width, which spills over the buttons */
+.main-actionBar-ActionBarRow > :last-child > * {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto;
+}
+
+/* Your own playlists: Spotify draws an animated ring around Play that stretches the row */
+.main-actionBar-ActionBarPlayButtonContainer > div {
+    height: auto !important;
+    width: auto !important;
+}
+
+.main-actionBar-ActionBarPlayButtonContainer svg:has(circle) {
+    display: none !important;
+}
+
+/* "Add" and "Name & details" on your own playlists: GitHub grey buttons */
+.main-actionBar-ActionBarContainer button[class*="legacy-button-primary"]:not(.main-playButton-PlayButton button),
+.main-actionBar-ActionBarContainer button[class*="legacy-button-primary"]:not(.main-playButton-PlayButton button) > span {
+    min-block-size: 32px !important;
+    block-size: 32px !important;
+    padding-block: 0 !important;
+    border-radius: var(--gh-radius) !important;
+    background-color: var(--spice-main-elevated) !important;
+    color: var(--spice-text) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transform: none !important;
+}
+
+.main-actionBar-ActionBarContainer button[class*="legacy-button-primary"]:not(.main-playButton-PlayButton button) {
+    border: var(--gh-border) !important;
+    padding: 0 !important;
+}
+
+.main-actionBar-ActionBarContainer button[class*="legacy-button-primary"]:not(.main-playButton-PlayButton button):hover > span {
+    background-color: var(--spice-highlight) !important;
+}
+
+.main-actionBar-ActionBarRow .main-playButton-PlayButton,
+.main-actionBar-ActionBarRow .main-playButton-PlayButton button {
+    display: flex !important;
+    line-height: 0 !important;
+}
+
+/* The container is forced square (aspect-ratio 1/1), so a wide labelled button made it tall */
+.main-actionBar-ActionBarPlayButtonContainer,
+.main-actionBar-ActionBarPlayButtonContainer .main-topBar-playButtonWrapper {
+    aspect-ratio: auto !important;
+    height: auto !important;
+}
+
+/* ---------- Your Library in Compact view: GitHub's file tree ---------- */
+
+/* Compact rows are the ones without a cover image ("has-leading") */
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]) {
+    --gh-tree-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z'/></svg>");
+    --gh-tree-icon-color: var(--spice-accent);
+    border-radius: var(--gh-radius) !important;
+    min-block-size: 32px !important;
+}
+
+/* Playlist folders: same blue folder (playlists already use it) */
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"][aria-labelledby*=":folder:"]:not([class*="list-row--has-leading"]) {
+    --gh-tree-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z'/></svg>");
+    --gh-tree-icon-color: var(--spice-accent);
+}
+
+/* Artists: person icon */
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"][aria-labelledby*="spotify:artist:"]:not([class*="list-row--has-leading"]) {
+    --gh-tree-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z'/></svg>");
+    --gh-tree-icon-color: var(--spice-subtext);
+}
+
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]) [class*="legacy-list-row__column"]::before {
+    content: "";
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-color: var(--gh-tree-icon-color);
+    -webkit-mask: var(--gh-tree-icon) center / 16px no-repeat;
+    mask: var(--gh-tree-icon) center / 16px no-repeat;
+}
+
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]) [class*="legacy-list-row__column"] {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    min-width: 0;
+}
+
+/* Names only, like file names: hide "• Playlist" */
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]) [class*="legacy-list-row__column"] p:not(:first-child) {
+    display: none !important;
+}
+
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]) [class*="legacy-list-row__column"] p:first-child {
+    font-size: 14px !important;
+    color: var(--spice-text) !important;
+}
+
+/* Hover and the open item, like the current file in GitHub's tree */
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"]:not([class*="list-row--has-leading"]):hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+/* Open playlist / album: same look as the playing track (blue tint, blue bar, bold blue name) */
+.main-yourLibraryX-libraryRootlist [aria-selected="true"] [data-encore-id="listRow"],
+.main-yourLibraryX-libraryRootlist [aria-selected="true"] [data-encore-id="listRow"]:hover {
+    background-color: rgba(var(--spice-rgb-accent), 0.15) !important;
+    box-shadow: inset 3px 0 0 var(--spice-accent) !important;
+}
+
+/* Only the name (body-medium text), not the "Playlist • teacup" line under it */
+.main-yourLibraryX-libraryRootlist [aria-selected="true"] [data-encore-id="listRow"] p[class*="encore-text-body-medium"],
+.main-yourLibraryX-libraryRootlist [aria-selected="true"] [data-encore-id="listRow"] p[class*="encore-text-body-medium"] * {
+    color: var(--spice-accent) !important;
+    font-weight: 600 !important;
+}
+
+/* ---------- Playing track: blue tint, blue bar, bold blue title ---------- */
+
+.main-trackList-trackListRow:has(img[src*="equaliser"]),
+.main-trackList-trackListRow:has(img[src*="equaliser"]):hover {
+    background-color: rgba(var(--spice-rgb-accent), 0.15) !important;
+    box-shadow: inset 0 1px 0 var(--spice-border), inset 3px 0 0 var(--spice-accent) !important;
+}
+
+.main-trackList-trackListRow:has(img[src*="equaliser"]) .main-trackList-rowTitle {
+    color: var(--spice-accent) !important;
+    font-weight: 600 !important;
+}
+
+/* Spotify's equaliser animation is a green GIF; turn it blue */
+.main-trackList-trackListRow img[src*="equaliser"] {
+    filter: hue-rotate(75deg) saturate(1.3);
+}
