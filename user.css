@@ -876,10 +876,13 @@ body,
     gap: 4px !important;
 }
 
-/* Spotify sizes the text box for the banner; shrink it to the text */
+/* Spotify sizes the text box for the banner; shrink it to the text.
+   Artists without a banner keep their picture in here too, so space it from the text. */
 [data-testid="artist-page"] .main-entityHeader-contentWrapper > div:has(> .main-entityHeader-headerText) {
     height: auto !important;
     min-height: 0 !important;
+    align-items: center !important;
+    gap: 16px !important;
 }
 
 /* Spotify's "3.6M monthly listeners" moves into our followers line */
