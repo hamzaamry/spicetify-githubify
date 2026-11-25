@@ -1386,3 +1386,12 @@ body,
 .main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__column"] {
     gap: 0 !important;
 }
+
+/* Spotify animates the chips when a tab is picked, measuring them before theme.js adds the counter;
+   the animation could leave a chip stretched over its neighbour. Tabs don't animate on GitHub either. */
+.main-yourLibraryX-filterArea [role="option"],
+.main-yourLibraryX-filterArea [data-encore-id="chip"] {
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+}
