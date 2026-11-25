@@ -1119,10 +1119,10 @@ body,
 /* ---------- Your Library in List view: GitHub's "Top repositories" list ---------- */
 
 .main-yourLibraryX-libraryRootlist [data-encore-id="listRow"][class*="list-row--has-leading"] {
-    --box-min-block-size: 44px !important;
+    --box-min-block-size: 52px !important;
     grid-template-rows: auto !important;
     border-radius: var(--gh-radius) !important;
-    min-block-size: 44px !important;
+    min-block-size: 52px !important;
     padding-block: 6px !important;
 }
 
@@ -1169,7 +1169,7 @@ body,
 }
 
 .main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowTitle"] {
-    font-size: 14px !important;
+    font-size: 15px !important;
     line-height: 20px !important;
 }
 
@@ -1212,4 +1212,168 @@ body,
 
 .main-yourLibraryX-header button[aria-label="Create"]::after {
     content: "New";
+}
+
+/* ---------- Your Library tabs: GitHub's repository tabs with counters (counts from theme.js) ---------- */
+
+.main-yourLibraryX-filterArea {
+    border-bottom: var(--gh-border);
+}
+
+.main-yourLibraryX-filterArea [class*="-legacy-chip__inner"] {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 8px !important;
+    font-size: 14px !important;
+}
+
+/* Counter pill */
+.main-yourLibraryX-filterArea [class*="-legacy-chip__inner"][data-gh-count]::after {
+    content: attr(data-gh-count);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    padding: 0 6px;
+    border-radius: 2em;
+    background-color: var(--spice-highlight);
+    color: var(--spice-text);
+}
+
+/* Icon per tab */
+.main-yourLibraryX-filterArea [data-encore-id="chip"]:is([aria-label="Playlists"], [aria-label="Albums"], [aria-label="Artists"], [aria-label="Podcasts"]) [class*="-legacy-chip__inner"]::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    flex: none;
+    background-color: var(--spice-subtext);
+    -webkit-mask: var(--gh-tab-icon) center / 16px no-repeat;
+    mask: var(--gh-tab-icon) center / 16px no-repeat;
+}
+
+.main-yourLibraryX-filterArea [aria-label="Playlists"] { --gh-tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.75 2.5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-6a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z'/></svg>"); }
+.main-yourLibraryX-filterArea [aria-label="Albums"] { --gh-tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4 0a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Z'/></svg>"); }
+.main-yourLibraryX-filterArea [aria-label="Artists"] { --gh-tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z'/></svg>"); }
+.main-yourLibraryX-filterArea [aria-label="Podcasts"] { --gh-tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M8 0a3 3 0 0 1 3 3v4a3 3 0 0 1-6 0V3a3 3 0 0 1 3-3Zm0 1.5A1.5 1.5 0 0 0 6.5 3v4a1.5 1.5 0 0 0 3 0V3A1.5 1.5 0 0 0 8 1.5ZM3.75 6a.75.75 0 0 1 .75.75 3.5 3.5 0 0 0 7 0 .75.75 0 0 1 1.5 0 5.001 5.001 0 0 1-4.25 4.944V14h2a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5h2v-2.306A5.001 5.001 0 0 1 3 6.75.75.75 0 0 1 3.75 6Z'/></svg>"); }
+
+/* ---------- Your Library search and sort: "Find a playlist…" box and a grey Sort button ---------- */
+
+.main-yourLibraryX-rootListHeader,
+.main-yourLibraryX-libraryFilter {
+    gap: 8px;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-filterInputContainer {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* The input is in the page even while Spotify shows only the magnifier; keep it open */
+.main-yourLibraryX-libraryFilter .x-filterBox-filterInput {
+    width: 100% !important;
+    max-width: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: 32px;
+    padding-inline: 32px 12px !important;
+    border-radius: var(--gh-radius) !important;
+    border: var(--gh-border) !important;
+    background-color: var(--spice-main) !important;
+    color: var(--spice-text) !important;
+    font-size: 14px !important;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-filterInput:focus {
+    border-color: var(--spice-accent) !important;
+    box-shadow: inset 0 0 0 1px var(--spice-accent) !important;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-expandButton {
+    display: none !important;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-overlay,
+.main-yourLibraryX-libraryFilter .x-filterBox-searchIconContainer {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-searchIconContainer svg {
+    fill: var(--spice-subtext) !important;
+    width: 16px;
+    height: 16px;
+}
+
+.main-yourLibraryX-libraryFilter > button[role="combobox"] {
+    flex: none;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 10px !important;
+    border: var(--gh-border) !important;
+    border-radius: var(--gh-radius) !important;
+    background-color: var(--spice-main-elevated) !important;
+    color: var(--spice-text) !important;
+    transform: none !important;
+}
+
+.main-yourLibraryX-libraryFilter > button[role="combobox"]:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+.main-yourLibraryX-libraryFilter > button[role="combobox"]::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    flex: none;
+    background-color: var(--spice-subtext);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M0 4.25a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 4.25Zm0 4a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 8.25Zm0 4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75ZM13.5 10h2.25a.25.25 0 0 1 .177.427l-3 3a.25.25 0 0 1-.354 0l-3-3A.25.25 0 0 1 9.75 10H12V3.75a.75.75 0 0 1 1.5 0V10Z'/></svg>") center / 16px no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M0 4.25a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 4.25Zm0 4a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 8.25Zm0 4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75ZM13.5 10h2.25a.25.25 0 0 1 .177.427l-3 3a.25.25 0 0 1-.354 0l-3-3A.25.25 0 0 1 9.75 10H12V3.75a.75.75 0 0 1 1.5 0V10Z'/></svg>") center / 16px no-repeat;
+}
+
+.main-yourLibraryX-libraryFilter > button[role="combobox"] span {
+    color: var(--spice-text) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* ---------- Your Library rows (List view): "owner / name" on one line ---------- */
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowTitle"] {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600 !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowTitle"] > span {
+    display: inline !important;
+    -webkit-line-clamp: unset !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowTitle"]:not([data-gh-owner=""])[data-gh-owner]::before {
+    content: attr(data-gh-owner) " / ";
+    font-weight: 400;
+    color: var(--spice-subtext);
+}
+
+/* The details line goes; its icon (pinned, downloaded) stays, at the end of the row */
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowSubtitle"] > span:last-child {
+    display: none !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowSubtitle"] {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 !important;
+}
+
+/* Wide library: Spotify adds a "Create" label; ours says "New" */
+.main-yourLibraryX-header button[aria-label="Create"] > span {
+    display: none !important;
 }

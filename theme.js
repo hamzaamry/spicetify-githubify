@@ -157,11 +157,66 @@
         });
     }
 
+    // Your Library: "owner / name" rows, counts on the filter tabs, a "Find a playlist…" box.
+    const LIBRARY_FILTERS = { Albums: "0", Artists: "1", Playlists: "2", Podcasts: "3" };
+    const FIND_LABELS = { Playlists: "Find a playlist…", Albums: "Find an album…", Artists: "Find an artist…", Podcasts: "Find a podcast…" };
+    let libraryCounts = {};
+    let countsFetchedAt = 0;
+
+    function fetchLibraryCounts() {
+        // ponytail: refetched at most every 15s while the page changes; subscribe to LibraryAPI events if that lags
+        if (Date.now() - countsFetchedAt < 15000) return;
+        countsFetchedAt = Date.now();
+        const api = Spicetify.Platform.LibraryAPI;
+        Promise.all(Object.entries(LIBRARY_FILTERS).map(([label, id]) =>
+            api.getContents({ limit: 1, offset: 0, filters: [id] }).then((r) => [label, r.totalLength])))
+            .then((entries) => {
+                libraryCounts = Object.fromEntries(entries);
+                // The Playlists view lists Liked Songs, which the API doesn't count
+                libraryCounts.Playlists += 1;
+                update();
+            })
+            .catch(() => {});
+    }
+
+    function updateLibrary() {
+        fetchLibraryCounts();
+
+        let active = "";
+        document.querySelectorAll(".main-yourLibraryX-filterArea [data-encore-id='chip']").forEach((chip) => {
+            const label = chip.getAttribute("aria-label");
+            const inner = chip.querySelector("[class*='chip__inner']");
+            if (!inner) return;
+            if (inner.className.includes("chip__inner--selected") && FIND_LABELS[label]) active = label;
+            const n = libraryCounts[label];
+            if (n != null && inner.dataset.ghCount !== String(n)) inner.dataset.ghCount = compact.format(n);
+        });
+
+        const find = document.querySelector(".main-yourLibraryX-libraryFilter .x-filterBox-filterInput");
+        const placeholder = FIND_LABELS[active] ?? "Find in Your Library…";
+        if (find && find.placeholder !== placeholder) find.placeholder = placeholder;
+
+        // "Playlist • teacup" → owner "teacup"; "Made for teacup" mixes belong to Spotify, like the playlist header.
+        // With a tab selected Spotify drops the type, leaving just "teacup" (but Artists keep "Artist").
+        const ownerOnly = active && active !== "Artists";
+        document.querySelectorAll(".main-yourLibraryX-libraryRootlist [data-encore-id='listRow']").forEach((row) => {
+            const title = row.querySelector("[data-encore-id='listRowTitle']");
+            const details = row.querySelector("[data-encore-id='listRowSubtitle'] > span:last-child");
+            if (!title || !details) return;
+            const parts = details.textContent.split("•").map((s) => s.trim());
+            let owner = parts.length > 1 ? parts[1] : ownerOnly ? parts[0] : "";
+            if (/^\d+ (playlists?|folders?)/i.test(owner)) owner = ""; // folders: "4 playlists"
+            if (/^made for /i.test(owner)) owner = "Spotify";
+            if (title.dataset.ghOwner !== owner) title.dataset.ghOwner = owner;
+        });
+    }
+
     let queued = false;
     function update() {
         queued = false;
         document.querySelectorAll(".main-entityHeader-container").forEach(buildHeader);
         labelSearch();
+        updateLibrary();
     }
 
     new MutationObserver(() => {
