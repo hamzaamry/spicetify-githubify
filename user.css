@@ -972,8 +972,9 @@ body,
     letter-spacing: 0 !important;
 }
 
-/* Shelves ("Recents", "Discography"): the divider runs under the title and "Show all" */
-.Root__main-view [class*="legacy-list-row__header"] {
+/* Shelves ("Recents", "Discography"): one divider under the whole header row (avatar, title, "Show all").
+   On the inner header it broke in two wherever the shelf has an avatar ("More like Travis Scott"). */
+.Root__main-view [data-encore-id="listRow"]:has(> [class*="legacy-list-row__header"] h2) {
     border-bottom: var(--gh-border);
     padding-bottom: 8px;
     margin-bottom: 16px;
@@ -1424,8 +1425,9 @@ body,
 
 /* Spotify animates the chips when a tab is picked, measuring them before theme.js adds the counter;
    the animation could leave a chip stretched over its neighbour. Tabs don't animate on GitHub either. */
-.main-yourLibraryX-filterArea [role="option"],
-.main-yourLibraryX-filterArea [data-encore-id="chip"] {
+.search-searchCategory-contentArea :is([role="list"], [role="listbox"]) > *,
+.search-searchCategory-contentArea :has(> [data-encore-id="chip"]),
+.search-searchCategory-contentArea [data-encore-id="chip"] {
     /* A picked sub-filter ("By you") is pulled left by a negative margin to join its parent chip into
        one pill; with the icon and counter it lands on the count. Tabs sit side by side instead. */
     margin-left: 0 !important;
@@ -1461,4 +1463,59 @@ body,
 [data-testid="home-page"] [data-encore-id="card"] [class*="card__main"] {
     padding-top: 2px !important;
     gap: 2px !important;
+}
+
+/* ---------- Home: no colour wash, small play button, cards that line up ---------- */
+
+/* Spotify tints the top of Home with the colour of the hovered tile; keep it flat */
+main > div:has(> [data-testid="home-page"]) > div:first-child {
+    background: none !important;
+}
+
+/* Shortcut play button: a small 24px button inside a 64px tile */
+.view-homeShortcutsGrid-playButton {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    min-block-size: 24px !important;
+    min-inline-size: 24px !important;
+}
+
+.view-homeShortcutsGrid-playButton svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* Cards in a shelf share one height */
+.Root__main-view [role="row"] > [role="gridcell"] > [role="presentation"]:has(> [data-encore-id="card"]) {
+    height: 100%;
+}
+
+.Root__main-view [data-encore-id="card"] {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Round artist photos on Home: as tall as a 16:9 cover, centered */
+[data-testid="home-page"] [data-encore-id="card"] .main-cardImage-imageWrapper.main-cardImage-circular {
+    width: 56.25% !important;
+    margin-inline: auto !important;
+    padding-bottom: 56.25% !important;
+}
+
+/* One-line titles on Home so cards line up */
+[data-testid="home-page"] [data-encore-id="cardTitle"] span[class*="line-clamp"] {
+    -webkit-line-clamp: 1 !important;
+    line-clamp: 1 !important;
+}
+
+/* Long names stop before the play button instead of running under it */
+.view-homeShortcutsGrid-content {
+    padding-right: 32px !important;
+}
+
+/* The picked sub-filter ("Following") keeps 48px of left padding for the pill it used to tuck under */
+[class*="chip__inner--secondary"] {
+    padding-left: 12px !important;
 }
