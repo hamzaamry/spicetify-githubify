@@ -1115,3 +1115,101 @@ body,
     background-color: rgba(var(--spice-rgb-accent), 0.15) !important;
     box-shadow: inset 3px 0 0 var(--spice-accent);
 }
+
+/* ---------- Your Library in List view: GitHub's "Top repositories" list ---------- */
+
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"][class*="list-row--has-leading"] {
+    --box-min-block-size: 44px !important;
+    grid-template-rows: auto !important;
+    border-radius: var(--gh-radius) !important;
+    min-block-size: 44px !important;
+    padding-block: 6px !important;
+}
+
+.main-yourLibraryX-libraryRootlist [data-encore-id="listRow"][class*="list-row--has-leading"]:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] .x-entityImage-imageContainer {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] .x-entityImage-imageContainer,
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] .x-entityImage-imageContainer img {
+    border-radius: var(--gh-radius) !important;
+}
+
+/* Artists stay round, like GitHub avatars */
+.main-yourLibraryX-libraryRootlist [aria-labelledby*="spotify:artist:"][class*="list-row--has-leading"] .x-entityImage-imageContainer,
+.main-yourLibraryX-libraryRootlist [aria-labelledby*="spotify:artist:"][class*="list-row--has-leading"] .x-entityImage-imageContainer img {
+    border-radius: 50% !important;
+}
+
+/* Spotify sizes the cover slot and text column for a 48px cover; fit them to 32px */
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__header"] {
+    min-block-size: 0 !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__header-side"] {
+    block-size: 32px !important;
+    min-block-size: 0 !important;
+}
+
+/* The hover play button over the cover is 50px; fit it to the cover */
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__header-side"] .main-playButton-PlayButton button {
+    block-size: 32px !important;
+    inline-size: 32px !important;
+    padding: 0 !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] .x-entityImage-imageContainer {
+    box-shadow: 0 0 0 1px var(--spice-border) !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowTitle"] {
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [data-encore-id="listRowSubtitle"] {
+    font-size: 12px !important;
+    line-height: 18px !important;
+}
+
+/* Header: small title, green "New" button instead of the round + */
+.main-yourLibraryX-header h1 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.main-yourLibraryX-header button[aria-label="Create"] {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    width: auto !important;
+    height: 32px !important;
+    padding: 0 12px !important;
+    border-radius: var(--gh-radius) !important;
+    border: 1px solid rgba(var(--spice-rgb-text), 0.1) !important;
+    background-color: var(--spice-button) !important;
+    color: var(--spice-button-text) !important;
+    font-size: 14px;
+    font-weight: 500;
+    transform: none !important;
+}
+
+.main-yourLibraryX-header button[aria-label="Create"]:hover {
+    background-color: var(--spice-button-active) !important;
+}
+
+.main-yourLibraryX-header button[aria-label="Create"] svg {
+    width: 16px !important;
+    height: 16px !important;
+    fill: currentColor !important;
+}
+
+.main-yourLibraryX-header button[aria-label="Create"]::after {
+    content: "New";
+}
