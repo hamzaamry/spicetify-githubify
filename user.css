@@ -580,8 +580,8 @@ body,
     display: none !important;
 }
 
-/* Search in playlist: always open, full width, like "Go to file" */
-.main-actionBar-ActionBarRow > :last-child {
+/* Search in playlist: always open, full width, like "Go to file" (only where there is one: artist pages end with "…") */
+.main-actionBar-ActionBarRow > :last-child:has(.x-filterBox-filterInputContainer) {
     flex: 1 1 240px;
     display: flex;
     align-items: center;
@@ -704,7 +704,7 @@ body,
 }
 
 /* Spotify gives the search box a fixed 400px width, which spills over the buttons */
-.main-actionBar-ActionBarRow > :last-child > * {
+.main-actionBar-ActionBarRow > :last-child:has(.x-filterBox-filterInputContainer) > * {
     width: auto !important;
     max-width: 100% !important;
     min-width: 0 !important;
