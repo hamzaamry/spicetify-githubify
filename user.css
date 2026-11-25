@@ -1391,6 +1391,9 @@ body,
    the animation could leave a chip stretched over its neighbour. Tabs don't animate on GitHub either. */
 .main-yourLibraryX-filterArea [role="option"],
 .main-yourLibraryX-filterArea [data-encore-id="chip"] {
+    /* A picked sub-filter ("By you") is pulled left by a negative margin to join its parent chip into
+       one pill; with the icon and counter it lands on the count. Tabs sit side by side instead. */
+    margin-left: 0 !important;
     transform: none !important;
     animation: none !important;
     transition: none !important;
