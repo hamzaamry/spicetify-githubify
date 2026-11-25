@@ -184,8 +184,8 @@ body,
     letter-spacing: 0 !important;
 }
 
-/* "Playlist" / "Album" label as a GitHub "Public" badge */
-.main-entityHeader-headerText > span:first-child {
+/* "Playlist" / "Album" label as a GitHub "Public" badge (artist pages start with the title instead) */
+.main-entityHeader-headerText > span:first-child:not(.main-entityHeader-title) {
     align-self: flex-start;
     width: fit-content;
     font-size: 12px !important;
@@ -843,4 +843,84 @@ body,
 /* Spotify's equaliser animation is a green GIF; turn it blue */
 .main-trackList-trackListRow img[src*="equaliser"] {
     filter: hue-rotate(75deg) saturate(1.3);
+}
+
+/* ---------- Artist page: a GitHub profile (avatar, name, followers) built by theme.js ---------- */
+
+/* No banner: GitHub profiles don't have one */
+.Root__main-view:has([data-testid="artist-page"]) .before-scroll-node > div {
+    display: none !important;
+}
+
+.gh-avatar {
+    width: 96px;
+    height: 96px;
+    flex: none;
+    border-radius: 50%;
+    border: var(--gh-border);
+    object-fit: cover;
+}
+
+/* Artists without a banner keep Spotify's picture; make it round like ours */
+[data-testid="artist-page"] :is(.main-entityHeader-imageContainer, .main-entityHeader-imageContainerNew),
+[data-testid="artist-page"] .main-entityHeader-image {
+    border-radius: 50% !important;
+}
+
+[data-testid="artist-page"] .main-entityHeader-contentWrapper {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+
+[data-testid="artist-page"] .main-entityHeader-headerText {
+    gap: 4px !important;
+}
+
+/* Spotify sizes the text box for the banner; shrink it to the text */
+[data-testid="artist-page"] .main-entityHeader-contentWrapper > div:has(> .main-entityHeader-headerText) {
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+/* Spotify's "3.6M monthly listeners" moves into our followers line */
+.main-entityHeader-headerText:has(> .gh-followers) > span:not(.main-entityHeader-title) {
+    display: none !important;
+}
+
+/* "Verified by Spotify": small grey text, blue check */
+[data-testid="artist-page"] .main-entityHeader-headerText > button,
+[data-testid="artist-page"] .main-entityHeader-headerText > button * {
+    color: var(--spice-subtext) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+[data-testid="artist-page"] .main-entityHeader-headerText > button svg {
+    fill: var(--spice-accent) !important;
+    color: var(--spice-accent) !important;
+    width: 16px;
+    height: 16px;
+}
+
+.gh-followers {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: var(--spice-subtext);
+}
+
+.gh-followers .gh-icon {
+    fill: var(--spice-subtext);
+    margin-right: 4px;
+}
+
+.gh-followers strong {
+    color: var(--spice-text);
+    font-weight: 600;
+}
+
+.gh-followers .gh-sep {
+    margin-inline: 4px;
 }

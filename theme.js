@@ -9,8 +9,9 @@
     }
 
     const SVG_NS = "http://www.w3.org/2000/svg";
-    // Octicons (MIT): repo, play
+    // Octicons (MIT): repo, play, people
     const ICONS = {
+        people: "M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z",
         repo: "M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z",
         play: "M4 2.5v11a.5.5 0 0 0 .77.42l8.5-5.5a.5.5 0 0 0 0-.84l-8.5-5.5A.5.5 0 0 0 4 2.5Z",
     };
@@ -35,9 +36,61 @@
         return node;
     }
 
+    // Artist avatar and followers aren't in the page when Spotify shows a banner; ask the API once per artist.
+    const artistInfo = new Map();
+    const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
+
+    function fetchArtist(uri) {
+        if (!artistInfo.has(uri)) {
+            artistInfo.set(uri, null);
+            Spicetify.GraphQL.Request(Spicetify.GraphQL.Definitions.queryArtistOverview, { uri, locale: "", includePrerelease: false })
+                .then(({ data }) => {
+                    const a = data.artistUnion;
+                    const sources = a.visuals?.avatarImage?.sources ?? [];
+                    // Smallest image that's still sharp at 96px on HiDPI
+                    const avatar = sources.filter((s) => s.width >= 160).sort((x, y) => x.width - y.width)[0] ?? sources[0];
+                    artistInfo.set(uri, { avatar: avatar?.url ?? "", followers: a.stats?.followers });
+                    update();
+                })
+                .catch(() => {}); // ponytail: no avatar/followers on failure, the rest of the header still works
+        }
+        return artistInfo.get(uri);
+    }
+
+    // Artist page = GitHub profile: round avatar, name, "followers · monthly listeners"
+    function buildArtist(header) {
+        const id = Spicetify.Platform.History.location.pathname.match(/^\/artist\/([A-Za-z0-9]+)/)?.[1];
+        const textBox = header.querySelector(".main-entityHeader-headerText");
+        if (!id || !textBox) return;
+        const info = fetchArtist(`spotify:artist:${id}`);
+        if (!info) return;
+
+        const listeners = textBox.textContent.match(/([\d.,]+\s*[KMB]?)\s+monthly listeners/i)?.[1] ?? "";
+        const key = id + listeners;
+        const existing = textBox.querySelector(":scope > .gh-followers");
+        if (existing && existing.dataset.key === key) return;
+        existing?.remove();
+        header.querySelector(".gh-avatar")?.remove();
+
+        // Artists without a banner already show their picture; only add one when it's missing.
+        if (info.avatar && !header.querySelector(".main-entityHeader-imageContainer, .main-entityHeader-imageContainerNew")) {
+            const img = el("img", "gh-avatar");
+            img.src = info.avatar;
+            img.alt = "";
+            textBox.parentElement.before(img);
+        }
+
+        const line =el("div", "gh-followers");
+        line.dataset.key = key;
+        line.append(icon("people"));
+        if (info.followers != null) line.append(el("strong", "", compact.format(info.followers)), " followers");
+        if (info.followers != null && listeners) line.append(el("span", "gh-sep", "·"));
+        if (listeners) line.append(el("strong", "", listeners), " monthly listeners");
+        textBox.append(line);
+    }
+
     function buildHeader(header) {
-        // Artist pages use a big background image header; leave them alone.
-        if (header.classList.contains("main-entityHeader-withBackgroundImage")) return;
+        if (header.closest('[data-testid="artist-page"]')) return buildArtist(header);
 
         const textBox = header.querySelector(".main-entityHeader-headerText");
         const titleEl = header.querySelector(".main-entityHeader-title h1");
