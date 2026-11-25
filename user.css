@@ -285,14 +285,19 @@ body,
 
 /* ---------- Cards: GitHub repo cards ---------- */
 
-.main-card-card {
-    background-color: var(--spice-main) !important;
+/* .main-card-card is the older Spotify class; newer builds use [data-encore-id="card"] */
+.main-card-card,
+.Root__main-view [data-encore-id="card"] {
+    background-color: var(--spice-main-elevated) !important;
     border: var(--gh-border);
     border-radius: var(--gh-radius) !important;
+    /* Spotify's grid cells have no gap; borders would touch */
+    margin-inline: 6px;
 }
 
 .main-card-card:hover,
-.main-card-card[data-context-menu-open="true"] {
+.main-card-card[data-context-menu-open="true"],
+.Root__main-view [data-encore-id="card"]:hover {
     background-color: var(--spice-main-elevated) !important;
     border-color: rgba(var(--spice-rgb-subtext), 0.6);
 }
@@ -302,6 +307,36 @@ body,
 .main-cardImage-image {
     border-radius: var(--gh-radius-small) !important;
     box-shadow: none !important;
+}
+
+/* The cover sits inside the card with its own thin border */
+.Root__main-view [data-encore-id="card"] .main-cardImage-imageWrapper {
+    box-shadow: 0 0 0 1px var(--spice-border) !important;
+}
+
+/* Artist and profile pictures stay round */
+.Root__main-view [data-encore-id="card"] .main-cardImage-imageWrapper[class*="circular"],
+.Root__main-view [data-encore-id="card"] .main-cardImage-imageWrapper:has(.main-cardImage-circular) {
+    border-radius: 50% !important;
+}
+
+/* Title: GitHub's blue repo name; subtitle: small grey description */
+.Root__main-view [data-encore-id="cardTitle"],
+.Root__main-view [data-encore-id="cardTitle"] * {
+    color: var(--spice-accent) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.Root__main-view [data-encore-id="card"]:hover [data-encore-id="cardTitle"] span {
+    text-decoration: underline;
+}
+
+.Root__main-view [data-encore-id="cardSubtitle"],
+.Root__main-view [data-encore-id="cardSubtitle"] * {
+    color: var(--spice-subtext) !important;
+    font-size: 12px !important;
+    line-height: 18px !important;
 }
 
 /* ---------- Filter chips: GitHub tabs with the orange underline ---------- */
