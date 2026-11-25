@@ -951,3 +951,42 @@ body,
     padding-bottom: 8px;
     margin-bottom: 16px;
 }
+
+/* ---------- Secondary buttons (Follow, Following, Start a Jam): GitHub's grey buttons ---------- */
+
+[data-encore-id="buttonSecondary"] {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    min-block-size: 32px !important;
+    block-size: 32px !important;
+    padding: 0 12px !important;
+    border: var(--gh-border) !important;
+    border-radius: var(--gh-radius) !important;
+    background-color: var(--spice-main-elevated) !important;
+    color: var(--spice-text) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transform: none !important;
+}
+
+[data-encore-id="buttonSecondary"]:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+/* Follow in the action bar gets GitHub's person icon */
+.main-actionBar-ActionBarRow [data-encore-id="buttonSecondary"]::before {
+    content: "";
+    flex: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--spice-subtext);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z'/></svg>") center / 16px no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z'/></svg>") center / 16px no-repeat;
+}
+
+/* Spotify places leading icons ("Start a Jam") absolutely over the padding; put them back in the row */
+[data-encore-id="buttonSecondary"] [class*="button__icon-wrapper"] {
+    position: static !important;
+    transform: none !important;
+}
