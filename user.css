@@ -1099,8 +1099,14 @@ body,
 .view-homeShortcutsGrid-nameWrapper:has(a[href^="/show/"])::after { content: "Podcast"; --gh-dot: var(--spice-button); }
 .view-homeShortcutsGrid-nameWrapper:has(a[href^="/collection/"])::after { content: "Collection"; }
 
-/* Playing shortcut: no green equaliser peeking behind Pause; same blue tint and bar as the playing track */
-.view-homeShortcutsGrid-playingEqualizer {
+/* Playing shortcut: same blue tint and bar as the playing track.
+   The equaliser plays (blue, like the track list); on hover it swaps for the Play/Pause button. */
+.view-homeShortcutsGrid-equaliserImage {
+    filter: hue-rotate(75deg) saturate(1.3);
+}
+
+.view-homeShortcutsGrid-shortcut:has(.view-homeShortcutsGrid-playingEqualizer):not(:hover) .view-homeShortcutsGrid-trailingOverlay,
+.view-homeShortcutsGrid-shortcut:hover .view-homeShortcutsGrid-playingEqualizer {
     display: none !important;
 }
 
