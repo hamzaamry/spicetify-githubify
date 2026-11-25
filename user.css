@@ -1433,3 +1433,31 @@ body,
     animation: none !important;
     transition: none !important;
 }
+
+/* ---------- Home cards, as in the mockup: compact repo card with a wide 16:9 cover ---------- */
+
+[data-testid="home-page"] [data-encore-id="card"] {
+    --box-padding: 8px !important;
+    padding: 8px !important;
+}
+
+/* The wrapper's height comes from padding-bottom (100% = square); 56.25% = 16:9 */
+[data-testid="home-page"] [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) {
+    padding-bottom: 56.25% !important;
+}
+
+[data-testid="home-page"] [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) img {
+    object-fit: cover !important;
+    height: 100% !important;
+}
+
+[data-testid="home-page"] [data-encore-id="card"] [data-encore-id="cardTitle"],
+[data-testid="home-page"] [data-encore-id="card"] [data-encore-id="cardTitle"] * {
+    font-size: 13px !important;
+    line-height: 18px !important;
+}
+
+[data-testid="home-page"] [data-encore-id="card"] [class*="card__main"] {
+    padding-top: 2px !important;
+    gap: 2px !important;
+}
