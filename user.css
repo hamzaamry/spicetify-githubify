@@ -1441,12 +1441,13 @@ body,
     padding: 8px !important;
 }
 
-/* The wrapper's height comes from padding-bottom (100% = square); 56.25% = 16:9 */
-[data-testid="home-page"] [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) {
+/* The wrapper's height comes from padding-bottom (100% = square); 56.25% = 16:9.
+   "Made For" shelves stay square: their cards have no title, so the cover (Daily Mix 01, 02…) names them. */
+[data-testid="home-page"] section:not([aria-label^="Made For"]) [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) {
     padding-bottom: 56.25% !important;
 }
 
-[data-testid="home-page"] [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) img {
+[data-testid="home-page"] section:not([aria-label^="Made For"]) [data-encore-id="card"] .main-cardImage-imageWrapper:not(.main-cardImage-circular) img {
     object-fit: cover !important;
     height: 100% !important;
 }
