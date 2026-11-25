@@ -1006,3 +1006,95 @@ body,
 [data-testid="artist-page"] div:has(> .main-trackList-trackList) ~ button:hover * {
     text-decoration: underline;
 }
+
+/* ---------- Home shortcuts: GitHub's pinned repositories ---------- */
+
+.view-homeShortcutsGrid-grid {
+    gap: 12px !important;
+    /* ponytail: fixed row height, since the tile contents are absolutely positioned and can't size the row */
+    grid-auto-rows: 64px !important;
+    grid-template-rows: none !important;
+}
+
+.view-homeShortcutsGrid-shortcut {
+    height: 100% !important;
+    background-color: transparent !important;
+    border: var(--gh-border);
+    border-radius: var(--gh-radius) !important;
+}
+
+.view-homeShortcutsGrid-shortcut:hover {
+    background-color: var(--spice-highlight) !important;
+}
+
+.view-homeShortcutsGrid-draggable {
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+}
+
+/* Cover shrinks to an icon next to the name */
+.view-homeShortcutsGrid-imageHolder,
+.view-homeShortcutsGrid-imageContainer,
+.view-homeShortcutsGrid-imageWrapper {
+    flex: none !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+}
+
+.view-homeShortcutsGrid-image {
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    border: var(--gh-border);
+}
+
+.view-homeShortcutsGrid-main,
+.view-homeShortcutsGrid-content {
+    padding: 0 !important;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.view-homeShortcutsGrid-nameWrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px;
+    min-width: 0;
+}
+
+.view-homeShortcutsGrid-nameWrapper a,
+.view-homeShortcutsGrid-nameWrapper a * {
+    color: var(--spice-accent) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    display: block;
+    max-width: 100%;
+    -webkit-line-clamp: unset !important;
+}
+
+.view-homeShortcutsGrid-shortcut:hover .view-homeShortcutsGrid-nameWrapper a {
+    text-decoration: underline;
+}
+
+/* Second line: the item's type with a colored dot, like a repo's language */
+.view-homeShortcutsGrid-nameWrapper::after {
+    content: "Playlist";
+    --gh-dot: var(--spice-accent);
+    padding-left: 16px;
+    background: radial-gradient(circle, var(--gh-dot) 0 5px, transparent 5.5px) 0 50% / 11px 11px no-repeat;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--spice-subtext);
+    white-space: nowrap;
+}
+
+.view-homeShortcutsGrid-nameWrapper:has(a[href^="/album/"])::after { content: "Album"; --gh-dot: var(--spice-tab-underline); }
+.view-homeShortcutsGrid-nameWrapper:has(a[href^="/artist/"])::after { content: "Artist"; --gh-dot: var(--spice-subtext); }
+.view-homeShortcutsGrid-nameWrapper:has(a[href^="/show/"])::after { content: "Podcast"; --gh-dot: var(--spice-button); }
+.view-homeShortcutsGrid-nameWrapper:has(a[href^="/collection/"])::after { content: "Collection"; }
