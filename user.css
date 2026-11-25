@@ -1098,3 +1098,14 @@ body,
 .view-homeShortcutsGrid-nameWrapper:has(a[href^="/artist/"])::after { content: "Artist"; --gh-dot: var(--spice-subtext); }
 .view-homeShortcutsGrid-nameWrapper:has(a[href^="/show/"])::after { content: "Podcast"; --gh-dot: var(--spice-button); }
 .view-homeShortcutsGrid-nameWrapper:has(a[href^="/collection/"])::after { content: "Collection"; }
+
+/* Playing shortcut: no green equaliser peeking behind Pause; same blue tint and bar as the playing track */
+.view-homeShortcutsGrid-playingEqualizer {
+    display: none !important;
+}
+
+.view-homeShortcutsGrid-shortcut:has(.view-homeShortcutsGrid-playingEqualizer),
+.view-homeShortcutsGrid-shortcut:has(.view-homeShortcutsGrid-playingEqualizer):hover {
+    background-color: rgba(var(--spice-rgb-accent), 0.15) !important;
+    box-shadow: inset 3px 0 0 var(--spice-accent);
+}
