@@ -990,3 +990,19 @@ body,
     position: static !important;
     transform: none !important;
 }
+
+/* ---------- "Show all" and "See more": plain blue links ---------- */
+
+.Root__main-view [class*="legacy-list-row__header"] [class*="legacy-list-row__slot"] a,
+.Root__main-view [class*="legacy-list-row__header"] [class*="legacy-list-row__slot"] a *,
+[data-testid="artist-page"] div:has(> .main-trackList-trackList) ~ button,
+[data-testid="artist-page"] div:has(> .main-trackList-trackList) ~ button * {
+    color: var(--spice-accent) !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+.Root__main-view [class*="legacy-list-row__header"] [class*="legacy-list-row__slot"] a:hover *,
+[data-testid="artist-page"] div:has(> .main-trackList-trackList) ~ button:hover * {
+    text-decoration: underline;
+}
