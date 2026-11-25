@@ -1377,3 +1377,12 @@ body,
 .main-yourLibraryX-header button[aria-label="Create"] > span {
     display: none !important;
 }
+
+/* Cover and "owner / name" share the row's vertical center */
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__header-side"] {
+    align-self: center !important;
+}
+
+.main-yourLibraryX-libraryRootlist [class*="list-row--has-leading"] [class*="list-row__column"] {
+    gap: 0 !important;
+}
