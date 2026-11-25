@@ -1592,3 +1592,21 @@ main > div:has(> [data-testid="home-page"]) > div:first-child {
     font-size: 12px !important;
     line-height: 18px !important;
 }
+
+/* Search top result: the 48px play button becomes a 32px GitHub button */
+[aria-label="Search results"] [data-testid="play-button"] .main-playButton-PlayButton button,
+[aria-label="Search results"] [data-testid="play-button"] .main-playButton-PlayButton button > span {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    min-block-size: 32px !important;
+    min-inline-size: 32px !important;
+    padding: 0 !important;
+    border-radius: var(--gh-radius) !important;
+}
+
+[aria-label="Search results"] [data-testid="play-button"] .main-playButton-PlayButton svg {
+    width: 16px !important;
+    height: 16px !important;
+}
